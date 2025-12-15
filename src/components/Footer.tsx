@@ -1,26 +1,5 @@
 import { Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
 
-const footerLinks = {
-  company: [
-    { name: "About Us", href: "#" },
-    { name: "Team", href: "#team" },
-    { name: "Careers", href: "#" },
-    { name: "Contact", href: "#" },
-  ],
-  services: [
-    { name: "Design", href: "#" },
-    { name: "Development", href: "#" },
-    { name: "Marketing", href: "#" },
-    { name: "Consulting", href: "#" },
-  ],
-  resources: [
-    { name: "Blog", href: "#blog" },
-    { name: "Portfolio", href: "#portfolio" },
-    { name: "Shop", href: "#products" },
-    { name: "FAQ", href: "#" },
-  ],
-};
-
 const socialLinks = [
   { icon: Facebook, href: "#", label: "Facebook" },
   { icon: Twitter, href: "#", label: "Twitter" },
@@ -49,93 +28,26 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Main Footer */}
+      {/* Simplified Footer - Only links and copyright */}
       <div className="container mx-auto px-6 py-12">
-        <div className="grid md:grid-cols-4 gap-10">
-          {/* Logo & Description */}
-          <div className="md:col-span-1">
-            <a href="#" className="text-3xl font-heading italic tracking-wide mb-4 block">
-              fleur<span className="text-rose">~</span>
-            </a>
-            <p className="text-header-foreground/60 text-sm leading-relaxed mb-6">
-              Less is definitely more. Create beautiful experiences with Fleur.
-            </p>
-            {/* Social Links */}
-            <div className="flex gap-4">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  className="w-9 h-9 flex items-center justify-center border border-header-foreground/20 rounded-full text-header-foreground/60 hover:text-header-foreground hover:border-header-foreground transition-colors"
-                  aria-label={social.label}
-                >
-                  <social.icon className="w-4 h-4" />
-                </a>
-              ))}
+        <div className="border-t border-header-foreground/10 mt-12 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="mb-4 md:mb-0">
+              <nav className="flex flex-wrap justify-center md:justify-start gap-4 items-center">
+                <span className="text-2xl font-heading italic tracking-wide">
+                  fleur<span className="text-rose">~</span>
+                </span>
+                <a href="#" className="text-header-foreground/60 hover:text-header-foreground text-sm transition-colors">Home</a>
+                <a href="#features" className="text-header-foreground/60 hover:text-header-foreground text-sm transition-colors">About</a>
+                <a href="#portfolio" className="text-header-foreground/60 hover:text-header-foreground text-sm transition-colors">Portfolio</a>
+                <a href="#blog" className="text-header-foreground/60 hover:text-header-foreground text-sm transition-colors">Blog</a>
+                <a href="#team" className="text-header-foreground/60 hover:text-header-foreground text-sm transition-colors">Contact</a>
+              </nav>
+            </div>
+            <div className="text-header-foreground/50 text-sm">
+              © 2017 Qode Interactive, All Rights Reserved
             </div>
           </div>
-
-          {/* Links */}
-          <div>
-            <h4 className="text-xs tracking-[0.2em] uppercase mb-6 text-header-foreground/80">
-              Company
-            </h4>
-            <ul className="space-y-3">
-              {footerLinks.company.map((link) => (
-                <li key={link.name}>
-                  <a
-                    href={link.href}
-                    className="text-header-foreground/60 text-sm hover:text-header-foreground transition-colors"
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-xs tracking-[0.2em] uppercase mb-6 text-header-foreground/80">
-              Services
-            </h4>
-            <ul className="space-y-3">
-              {footerLinks.services.map((link) => (
-                <li key={link.name}>
-                  <a
-                    href={link.href}
-                    className="text-header-foreground/60 text-sm hover:text-header-foreground transition-colors"
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-xs tracking-[0.2em] uppercase mb-6 text-header-foreground/80">
-              Resources
-            </h4>
-            <ul className="space-y-3">
-              {footerLinks.resources.map((link) => (
-                <li key={link.name}>
-                  <a
-                    href={link.href}
-                    className="text-header-foreground/60 text-sm hover:text-header-foreground transition-colors"
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* Copyright */}
-        <div className="border-t border-header-foreground/10 mt-12 pt-8 text-center">
-          <p className="text-header-foreground/50 text-sm">
-            © {new Date().getFullYear()} Fleur. All rights reserved. Made with love.
-          </p>
         </div>
       </div>
     </footer>
