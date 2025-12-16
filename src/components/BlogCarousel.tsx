@@ -1,132 +1,130 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
+
 import blog1 from "@/assets/blog-1.jpg";
 import blog2 from "@/assets/blog-2.jpg";
 import blog3 from "@/assets/blog-3.jpg";
 import blog4 from "@/assets/blog-4.jpg";
 
-const blogPosts = [
+const posts = [
   {
     image: blog1,
     title: "Choose your style",
     category: "Decoration",
     date: "February 24, 2024",
-    excerpt:
-      "Proin gravida nibh vel veliauctor aliquenean sollicitudiem quis bibendum auctor, nisi elit consequat ipsutis sem...",
+    excerpt: "Proin gravida nibh vel velit auctor aliquet...",
   },
   {
     image: blog2,
     title: "Wedding lists",
     category: "Design",
     date: "March 24, 2024",
-    excerpt:
-      "Proin gravida nibh vel veliauctor aliquenean sollicitudiem quis bibendum auctor, nisi elit consequat ipsutis sem...",
+    excerpt: "Proin gravida nibh vel velit auctor aliquet...",
   },
   {
     image: blog3,
     title: "Something Special",
     category: "Planning",
     date: "April 24, 2024",
-    excerpt:
-      "Proin gravida nibh vel veliauctor aliquenean sollicitudiem quis bibendum auctor, nisi elit consequat ipsutis sem...",
+    excerpt: "Proin gravida nibh vel velit auctor aliquet...",
   },
   {
     image: blog4,
     title: "Connect your worlds",
     category: "Fashion",
     date: "January 24, 2024",
-    excerpt:
-      "Proin gravida nibh vel veliauctor aliquenean sollicitudiem quis bibendum auctor, nisi elit consequat ipsutis sem...",
+    excerpt: "Proin gravida nibh vel velit auctor aliquet...",
   },
 ];
 
+// duplicate slides to avoid empty space
+const slides = [...posts, ...posts];
+
 export function BlogCarousel() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [index, setIndex] = useState(0);
 
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % blogPosts.length);
-  };
+  const SLIDES_VISIBLE = 3;
+  const TOTAL = posts.length;
 
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + blogPosts.length) % blogPosts.length);
-  };
+  // auto slide
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 1) % TOTAL);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, []);
 
-  const visiblePosts = () => {
-    const posts = [];
-    for (let i = 0; i < 3; i++) {
-      const index = (currentIndex + i) % blogPosts.length;
-      posts.push({ ...blogPosts[index], originalIndex: index });
-    }
-    return posts;
-  };
+  const next = () => setIndex((prev) => (prev + 1) % TOTAL);
+  const prev = () => setIndex((prev) => (prev - 1 + TOTAL) % TOTAL);
 
   return (
-    <section id="blog" className="py-24 md:py-32 bg-section-alt">
+    <section className="py-24 bg-section-alt">
       <div className="container mx-auto px-6">
-        {/* Section Header */}
+
+        {/* Header */}
         <div className="text-center mb-16">
           <h2 className="section-title mb-4">We're Sharing Everything</h2>
           <p className="section-subtitle">
-            Lorem ipsum dolor sit amet, consectetuer a gravida nibhumus vel velit auctor aliquet aenean sollicitudin lorem.
+            Lorem ipsum dolor sit amet, consectetuer a gravida nibhumus.
           </p>
         </div>
 
-        {/* Carousel */}
         <div className="relative">
-          {/* Navigation Buttons */}
+
+          {/* Arrows */}
           <button
-            onClick={prevSlide}
-            className="absolute -left-4 md:left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center bg-background rounded-full shadow-md text-foreground hover:text-accent transition-colors"
-            aria-label="Previous"
+            onClick={prev}
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10
+                       w-10 h-10 bg-background rounded-full shadow-md"
           >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
-          <button
-            onClick={nextSlide}
-            className="absolute -right-4 md:right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center bg-background rounded-full shadow-md text-foreground hover:text-accent transition-colors"
-            aria-label="Next"
-          >
-            <ChevronRight className="w-5 h-5" />
+            <ChevronLeft />
           </button>
 
-          {/* Posts Grid */}
-          <div className="grid md:grid-cols-3 gap-8 px-8 md:px-12">
-            {visiblePosts().map((post, index) => (
-              <article
-                key={`${post.originalIndex}-${index}`}
-                className={cn(
-                  "group bg-background card-hover",
-                  index === 2 && "hidden md:block"
-                )}
-              >
-                {/* Image */}
-                <div className="image-zoom aspect-[5/6] relative overflow-hidden">
-                  <img
-                    src={post.image}
-                    alt={post.title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/10 transition-colors duration-500" />
-                </div>
+          <button
+            onClick={next}
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10
+                       w-10 h-10 bg-background rounded-full shadow-md"
+          >
+            <ChevronRight />
+          </button>
 
-                {/* Content */}
-                <div className="p-6">
-                  <h3 className="font-heading text-xl md:text-2xl mb-3 group-hover:text-accent transition-colors">
-                    <a href="#">{post.title}</a>
-                  </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-                    {post.excerpt}
-                  </p>
-                  <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                    <a href="#" className="hover:text-accent transition-colors">
-                      {post.category}
-                    </a>
-                    <span>{post.date}</span>
+          {/* Viewport */}
+          <div className="overflow-hidden px-12">
+
+            {/* Track */}
+            <motion.div
+              className="flex gap-8"
+              animate={{ x: `-${index * (100 / SLIDES_VISIBLE)}%` }}
+              transition={{ duration: 0.7, ease: "easeInOut" }}
+              style={{ width: "200%" }} // duplicated slides
+            >
+              {slides.map((post, i) => (
+                <article
+                  key={i}
+                  className="w-1/3 bg-background"
+                >
+                  <div className="aspect-[5/6] overflow-hidden">
+                    <img
+                      src={post.image}
+                      alt={post.title}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
-                </div>
-              </article>
-            ))}
+
+                  <div className="p-6">
+                    <h3 className="text-xl mb-3">{post.title}</h3>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      {post.excerpt}
+                    </p>
+                    <div className="text-xs text-muted-foreground">
+                      {post.category} · {post.date}
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </motion.div>
+
           </div>
         </div>
       </div>
