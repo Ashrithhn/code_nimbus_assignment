@@ -4,72 +4,90 @@ import { useState } from "react";
 export function Footer() {
   const [email, setEmail] = useState("");
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle newsletter subscription
-    console.log("Subscribe:", email);
     setEmail("");
   };
 
   return (
-    <footer className="bg-[#3d3845] text-header-foreground">
-      {/* Main Footer Content */}
-      <div className="container mx-auto px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20">
-          {/* About Us */}
+    <footer className="bg-[#3d3845] text-white">
+      {/* MAIN FOOTER */}
+      <div className="container mx-auto px-6 pt-24 pb-20">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
+          
+          {/* ABOUT US */}
           <div>
-            <h3 className="font-heading text-lg mb-5 text-white">About Us</h3>
-            <p className="text-white/65 text-sm leading-relaxed">
-              Lorem ipsum dolor sit amet, nam ut vero scribentur, mel veritus omnesque ei. Mutat labores mea ex, mei cu option indoctum, sumo errem partiendo ex cum.
+            <h4 className="text-sm tracking-widest uppercase mb-6">
+              About Us
+            </h4>
+            <p className="text-white/65 text-sm leading-relaxed max-w-sm">
+              Lorem ipsum dolor sit amet, nam ut vero scribentur, mel veritus
+              omnesque ei. Mutat labores mea ex, mei cu option indoctum, sumo
+              errem partiendo ex cum.
             </p>
-          </div>
 
-          {/* Subscribe to Newsletter */}
-          <div>
-            <h3 className="font-heading text-lg mb-5 text-white">Subscribe to Our Newsletter</h3>
-            <form onSubmit={handleSubscribe} className="relative">
+            {/* Newsletter */}
+            <h4 className="text-sm tracking-widest uppercase mt-12 mb-4">
+              Subscribe to Our Newsletter
+            </h4>
+
+            <form onSubmit={handleSubmit} className="relative max-w-sm">
               <input
                 type="email"
-                placeholder="Enter Your Email*"
+                required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                required
-                className="w-full px-4 py-2.5 pr-10 bg-transparent border-b border-white/25 text-white placeholder:text-white/40 focus:outline-none focus:border-white/50 transition-colors text-sm"
+                placeholder="Enter Your Email*"
+                className="w-full bg-transparent border-b border-white/30 py-2 pr-10 text-sm placeholder:text-white/40 focus:outline-none focus:border-white/60"
               />
               <button
                 type="submit"
-                className="absolute right-0 bottom-2.5 text-white/60 hover:text-white transition-colors duration-300"
-                aria-label="Subscribe"
+                className="absolute right-0 bottom-2 text-white/60 hover:text-white transition"
               >
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight size={16} />
               </button>
             </form>
           </div>
+
+          {/* EMPTY CENTER COLUMN (INTENTIONAL) */}
+          <div className="hidden md:block"></div>
+
+          {/* INSTAGRAM (TITLE ONLY AS IN IMAGE) */}
+          <div>
+            <h4 className="text-sm tracking-widest uppercase mb-6">
+              Instagram
+            </h4>
+          </div>
+
         </div>
       </div>
 
-      {/* Bottom Footer Bar */}
+      {/* BOTTOM BAR */}
       <div className="border-t border-white/10 bg-[#35303d]">
-        <div className="container mx-auto px-6 py-6">
-          <div className="flex flex-col lg:flex-row justify-between items-center gap-5">
-            {/* Logo/Brand */}
-            <div className="text-white font-heading text-xl italic tracking-wide">
-              fleur<span className="text-rose">~</span>
+        <div className="container mx-auto px-6 py-8">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
+
+            {/* LOGO AND NAVIGATION */}
+            <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8">
+              <div className="font-heading italic text-xl tracking-wide">
+                fleur<span className="text-white/60">~</span>
+              </div>
+              
+              {/* NAV */}
+              <nav className="flex gap-6 text-xs text-white/55">
+                <a href="#" className="hover:text-white uppercase">Home</a>
+                <a href="#" className="hover:text-white uppercase">About</a>
+                <a href="#" className="hover:text-white uppercase">Portfolio</a>
+                <a href="#" className="hover:text-white uppercase">Blog</a>
+                <a href="#" className="hover:text-white uppercase">Contact</a>
+              </nav>
             </div>
-            
-            {/* Navigation Links */}
-            <nav className="flex flex-wrap justify-center gap-6 items-center">
-              <a href="#" className="text-white/55 hover:text-white text-xs transition-colors duration-300">Home</a>
-              <a href="#features" className="text-white/55 hover:text-white text-xs transition-colors duration-300">About</a>
-              <a href="#portfolio" className="text-white/55 hover:text-white text-xs transition-colors duration-300">Portfolio</a>
-              <a href="#blog" className="text-white/55 hover:text-white text-xs transition-colors duration-300">Blog</a>
-              <a href="#team" className="text-white/55 hover:text-white text-xs transition-colors duration-300">Contact</a>
-            </nav>
-            
-            {/* Copyright */}
-            <div className="text-white/45 text-xs text-center lg:text-right">
+
+            {/* CREDIT */}
+            <div className="text-xs text-white/45">
               Made with Ashrithn
             </div>
+
           </div>
         </div>
       </div>
