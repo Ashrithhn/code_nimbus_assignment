@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Menu, Search, ShoppingBag, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const navItems = [
   { name: "Home", href: "#" },
@@ -61,6 +62,7 @@ export function Header() {
 
         {/* Right Side Icons */}
         <div className="flex items-center gap-4">
+          <ThemeToggle />
           <button className={cn(
             "relative transition-colors",
             isScrolled 
